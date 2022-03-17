@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using UnityEngine;
 using Mono.Data.Sqlite;
-using System.Text;
-using System.Reflection;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
+using UnityEngine;
 
 namespace DataBase
 {
@@ -96,21 +96,26 @@ namespace DataBase
             return _sqlComm.ExecuteNonQuery();
         }
 
-        //public int TableNumbers()
-        //{
+        public List<string> QueryAllTable()
+        {
+            List<string> TableList = new List<string>();
+            var sql = $"SELECT name FROM sqlite_master where type='table' order by name";
+            _sqlComm.CommandText = sql;
+            var dr = _sqlComm.ExecuteReader();
+            if (dr != null)
+            {
+                while (dr.Read())
+                {
+                    TableList.Add(dr.GetValue(0).ToString());
+                }
+                dr.Close();
+                return TableList;
+            }
+            dr.Close();
+            return null;
+
             
-        //    var sql = $"SELECT name FROM sqlite_master where type='table' order by name";
-        //    _sqlComm.CommandText = sql;
-        //    var dr = _sqlComm.ExecuteReader();
-        //    if (dr != null && dr.Read())
-        //    {
-        //        int tableNum = Convert.ToInt32(dr[dr.GetName(0)]);
-        //        dr.Close();
-        //        return tableNum;
-        //    }
-        //    dr.Close();
-        //    return -1;
-        //}
+        }
 
         public bool IsTableCreated<T>(string TableName="") where T : class
         {
