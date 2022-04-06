@@ -1,29 +1,34 @@
 using DataBase;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TableContentFill : MonoBehaviour
 {
     SqlDbCommand sql;
     Transform table;
     Transform tabsContainer;
+    [SerializeField] TMP_InputField sqlInput;
+    [SerializeField] Button submitBtn;
+    TMP_InputField[] tMP_InputFields;
+    string tableName = "UserOutfit";
     //the const column number
     int colNum = 10;
     private void Start()
     {
         table = transform.Find("TableContent");
         tabsContainer = transform.Find("TabsContainer");
+        tMP_InputFields = table.GetComponentsInChildren<TMP_InputField>();
+        submitBtn.onClick.AddListener(SelectColumnBySql);
 
-        
 
         //Create SqliteConnection
         string dbPath = Application.persistentDataPath + "/Save/SaveData.db";
         sql = new SqlDbCommand(dbPath);
-
-
         List<string> Tables = sql.QueryAllTable();
         GameObject tabPrefab = Resources.Load<GameObject>("TableTabBtn");
         foreach (string tableName in Tables)
@@ -34,16 +39,34 @@ public class TableContentFill : MonoBehaviour
         }
 
         //Show the table
-        ShowTable<ExampleClassB>("UserOutfit");
+        ShowTable<ExampleClassB>(tableName);
     }
 
     private void ShowTable<T>(string TableName) where T : class
     {
-        sql.CreateTable<T>(TableName);
+        //Check if the table is created
+        if (!sql.IsTableCreated<T>(TableName))
+        {
+            Debug.LogError("Cannot find table " + TableName + " ,please create it first.");
+            return;
+        }
         List<T> ClassCList = sql.SelectAll<T>(TableName);
         FillTableContent(ClassCList);
     }
 
+    private void ClearTable()
+    {
+        foreach (TMP_InputField inputField in tMP_InputFields)
+        {
+            inputField.text = "";
+        }
+    }
+
+    public void RefreshTable()
+    {
+        ClearTable();
+        ShowTable<ExampleClassB>("UserOutfit");
+    }
     private void FillTableContent<T>(List<T> ClassList) where T : class
     {
         int row = 0;
@@ -75,5 +98,14 @@ public class TableContentFill : MonoBehaviour
         {
             input.interactable = false;
         }
+    }
+
+    public void SelectColumnBySql()
+    {
+        string sqlCommand = sqlInput.text;
+        string[]sqlArray= sqlCommand.Split(',');
+        List<string> columnList=sql.SelectColumnBySql<string>(sqlArray[0],sqlArray[1],tableName);
+        RefreshTable();
+        FillTableContent(columnList);
     }
 }

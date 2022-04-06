@@ -96,6 +96,7 @@ namespace DataBase
             return _sqlComm.ExecuteNonQuery();
         }
 
+        //query table names
         public List<string> QueryAllTable()
         {
             List<string> TableList = new List<string>();
@@ -400,6 +401,7 @@ namespace DataBase
             return ret;
         }
 
+        //use the sqlcommand
         public List<T> SelectBySql<T>(string sqlWhere,string TableName="") where T : class
         {
             var ret = new List<T>();
@@ -434,7 +436,8 @@ namespace DataBase
             dr.Close();
             return ret;
         }
-
+        
+        //select a specific column with sqlcommand
         public List<T> SelectColumnBySql<T>(string columnName, string sqlWhere, string TableName = "") where T : class
         {
             var ret = new List<T>();
@@ -472,7 +475,7 @@ namespace DataBase
             return ret;
         }
 
-        public List<string> SelectColumnBySql(string columnName, string sqlWhere, string TableName1="",string TableName2="", string Method = "JOIN") 
+        public List<string> SelectColumnByJOINSql(string columnName, string sqlWhere, string TableName1="",string TableName2="", string Method = "JOIN") 
         {
             var ret = new List<string>();
             var type = typeof(string);

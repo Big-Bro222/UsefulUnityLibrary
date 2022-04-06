@@ -4,10 +4,8 @@ using UnityEngine;
 using DataBase;
 
 
-public class ExampleClassA
+public class ExampleClassA: ExampleBase
 {
-    [ModelHelp(true, "Name", "string")]
-    public string name;
 
     [ModelHelp(true, "Class", "string")]
     public string[] className;

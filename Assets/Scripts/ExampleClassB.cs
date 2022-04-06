@@ -4,10 +4,8 @@ using UnityEngine;
 using DataBase;
 
 
-public class ExampleClassC
+public class ExampleClassC: ExampleBase
 {
-    [ModelHelp(true, "Name", "string")]
-    public string name;
 
     [ModelHelp(true, "Uuid", "string")]
     public string uuid;
