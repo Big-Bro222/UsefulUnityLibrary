@@ -14,20 +14,26 @@ public class TableContentFill : MonoBehaviour
     Transform tabsContainer;
     [SerializeField] TMP_InputField sqlInput;
     [SerializeField] Button submitBtn;
-    TMP_InputField[] tMP_InputFields;
-    string tableName = "UserOutfit";
+    InputField[] tMP_InputFields;
+    FieldInfo[] Fields;
+    string tableName = "UserProfile";
     //the const column number
     int colNum = 10;
+    int rowNum = 10;
+
+    int classCount = 0;
+    int classFieldCount = 0;
+
     private void Start()
     {
         table = transform.Find("TableContent");
         tabsContainer = transform.Find("TabsContainer");
-        tMP_InputFields = table.GetComponentsInChildren<TMP_InputField>();
+        tMP_InputFields = table.GetComponentsInChildren<InputField>();
         submitBtn.onClick.AddListener(SelectColumnBySql);
 
 
         //Create SqliteConnection
-        string dbPath = Application.persistentDataPath + "/Save/SaveData.db";
+        string dbPath = Application.dataPath + "/Save/SaveData.db";
         sql = new SqlDbCommand(dbPath);
         List<string> Tables = sql.QueryAllTable();
         GameObject tabPrefab = Resources.Load<GameObject>("TableTabBtn");
@@ -39,7 +45,7 @@ public class TableContentFill : MonoBehaviour
         }
 
         //Show the table
-        ShowTable<ExampleClassB>(tableName);
+        ShowTable<ExampleClassC>(tableName);
     }
 
     private void ShowTable<T>(string TableName) where T : class
@@ -50,13 +56,14 @@ public class TableContentFill : MonoBehaviour
             Debug.LogError("Cannot find table " + TableName + " ,please create it first.");
             return;
         }
-        List<T> ClassCList = sql.SelectAll<T>(TableName);
-        FillTableContent(ClassCList);
+        List<T> ClassList = sql.SelectAll<T>(TableName);
+        classCount = ClassList.Count;
+        FillTableContent(ClassList);
     }
 
     private void ClearTable()
     {
-        foreach (TMP_InputField inputField in tMP_InputFields)
+        foreach (InputField inputField in tMP_InputFields)
         {
             inputField.text = "";
         }
@@ -65,23 +72,36 @@ public class TableContentFill : MonoBehaviour
     public void RefreshTable()
     {
         ClearTable();
-        ShowTable<ExampleClassB>("UserOutfit");
+        ShowTable<ExampleClassC>("UserProfile");
     }
     private void FillTableContent<T>(List<T> ClassList) where T : class
     {
-        int row = 0;
-        int col = 0;
-        FieldInfo[] Fields = typeof(T).GetFields();
+        int firstRowindex = 0;
+        int firstColindex = 0;
+        Fields = typeof(T).GetFields();
         //SetUp title
         for (int i = 0; i < Fields.Length; i++)
         {
             string name = Fields[i].GetCustomAttribute<ModelHelp>().FieldName;
-            SetTableTxt(row, i + 1, name);
+            SetTableTxt(firstRowindex, i + 1, name, Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey);
+            GetGridInput(firstRowindex, i + 1).interactable = false;
         }
 
+        //disable first row and first col
+        for (int i = 0; i < colNum - 1; i++)
+        {
+            GetGridInput(firstRowindex, i + 1).interactable = false;
+        }
+        for (int i = 0; i < rowNum - 1; i++)
+        {
+            GetGridInput(i + 1, firstColindex).interactable = false;
+        }
+
+        //fill class numbers
         for (int j = 0; j < ClassList.Count; j++)
         {
             SetTableTxt(j + 1, 0, j.ToString());
+            GetGridInput(j + 1, 0).interactable = false;
             for (int i = 0; i < Fields.Length; i++)
             {
                 string Value = Fields[i].GetValue(ClassList[j]).ToString();
@@ -90,21 +110,41 @@ public class TableContentFill : MonoBehaviour
         }
     }
 
-    private void SetTableTxt(int row, int col, string txt)
+    private InputField GetGridInput(int row, int col)
     {
-        TMP_InputField input = table.GetChild(row * 10 + col).GetComponent<TMP_InputField>();
+        return tMP_InputFields[row * colNum + col];
+    }
+
+    private void SetTableTxt(int row, int col, string txt, bool isPrimary = false)
+    {
+        InputField input = GetGridInput(row, col);
         input.text = txt;
-        if (row == 0 || col == 0)
+        if (isPrimary)
         {
-            input.interactable = false;
+            input.textComponent.color = Color.red;
         }
+        else
+        {
+            input.textComponent.color = Color.black;
+        }
+
+        input.onEndEdit.AddListener(
+            (string value) =>
+            {
+                //if (isPrimary && value.Equals(""))
+                //{
+                //    Debug.LogError("Primary value cannot be null!");
+                //}
+                Debug.Log(row + " , " + col);
+            }
+            );
     }
 
     public void SelectColumnBySql()
     {
         string sqlCommand = sqlInput.text;
-        string[]sqlArray= sqlCommand.Split(',');
-        List<string> columnList=sql.SelectColumnBySql<string>(sqlArray[0],sqlArray[1],tableName);
+        string[] sqlArray = sqlCommand.Split(',');
+        List<string> columnList = sql.SelectColumnBySql<string>(sqlArray[0], sqlArray[1], tableName);
         RefreshTable();
         FillTableContent(columnList);
     }
