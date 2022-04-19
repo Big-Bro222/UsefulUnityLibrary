@@ -2,6 +2,7 @@ using DataBase;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class TableContentFill : MonoBehaviour
 
     int classCount = 0;
     int classFieldCount = 0;
-
+    IEnumerable<System.Object> dataList;
     private void Start()
     {
         table = transform.Find("TableContent");
@@ -76,6 +77,7 @@ public class TableContentFill : MonoBehaviour
     }
     private void FillTableContent<T>(List<T> ClassList) where T : class
     {
+        dataList = ClassList;
         int firstRowindex = 0;
         int firstColindex = 0;
         Fields = typeof(T).GetFields();
@@ -105,7 +107,7 @@ public class TableContentFill : MonoBehaviour
             for (int i = 0; i < Fields.Length; i++)
             {
                 string Value = Fields[i].GetValue(ClassList[j]).ToString();
-                SetTableTxt(j + 1, i + 1, Value);
+                SetTableTxt(j + 1, i + 1, Value,Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey);
             }
         }
     }
@@ -115,10 +117,18 @@ public class TableContentFill : MonoBehaviour
         return tMP_InputFields[row * colNum + col];
     }
 
-    private void SetTableTxt(int row, int col, string txt, bool isPrimary = false)
+    private void SetTableTxt(int row, int col, string txt)
     {
         InputField input = GetGridInput(row, col);
         input.text = txt;
+        string currentText = txt;
+    }
+
+    private void SetTableTxt(int row, int col, string txt, bool isPrimary)
+    {
+        InputField input = GetGridInput(row, col);
+        input.text = txt;
+        string currentText = txt;
         if (isPrimary)
         {
             input.textComponent.color = Color.red;
@@ -131,11 +141,27 @@ public class TableContentFill : MonoBehaviour
         input.onEndEdit.AddListener(
             (string value) =>
             {
-                //if (isPrimary && value.Equals(""))
-                //{
-                //    Debug.LogError("Primary value cannot be null!");
-                //}
-                Debug.Log(row + " , " + col);
+                Debug.Log(isPrimary);
+                //if value didn't change,return
+                if (value.Equals(currentText))
+                {
+                    return;
+                }
+
+                //if PrimaryValue is empty, log Error
+                if (isPrimary && value.Equals(""))
+                {
+                    PopUpCreater.Instance.PopUp("Primary value cannot be null!", "Insert Fail", InfoStatus.Error);
+                    input.text = currentText;
+                    return;
+                }
+
+                FieldInfo fieldInfo = Fields[col - 1];
+                fieldInfo.SetValue(dataList.ElementAtOrDefault(row - 1), value);
+                sql.Insert<ExampleClassC>((ExampleClassC)dataList.ElementAtOrDefault(row - 1), tableName);
+                //dataList(row)
+                Debug.Log("Change the column of " + fieldInfo.Name + " to " + value);
+                PopUpCreater.Instance.PopUp("Change the column of " + fieldInfo.Name + " from " + currentText + " to " + value, "Insert Success", InfoStatus.Success);
             }
             );
     }
