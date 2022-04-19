@@ -77,16 +77,26 @@ public class TableContentFill : MonoBehaviour
     }
     private void FillTableContent<T>(List<T> ClassList) where T : class
     {
+        //disable all the inputfield at first and then enable them.
+        foreach (InputField inputField in tMP_InputFields)
+        {
+            inputField.interactable=false;
+        }
+
         dataList = ClassList;
         int firstRowindex = 0;
         int firstColindex = 0;
+        int primaryKeyCol = -1;
         Fields = typeof(T).GetFields();
         //SetUp title
         for (int i = 0; i < Fields.Length; i++)
         {
             string name = Fields[i].GetCustomAttribute<ModelHelp>().FieldName;
+            if (Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey)
+            {
+                primaryKeyCol = i+1;
+            }
             SetTableTxt(firstRowindex, i + 1, name, Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey);
-            GetGridInput(firstRowindex, i + 1).interactable = false;
         }
 
         //disable first row and first col
@@ -110,6 +120,23 @@ public class TableContentFill : MonoBehaviour
                 SetTableTxt(j + 1, i + 1, Value,Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey);
             }
         }
+
+        //Add a button in the remain column for add new Input
+        InputField addInput = GetGridInput(ClassList.Count + 1, 0);
+        Button addButton= addInput.GetComponent<InputGrid>().AddButton;
+        addButton.gameObject.SetActive(true);
+        addButton.onClick.AddListener(() =>OnClickAdd(addInput,ClassList.Count,primaryKeyCol,addButton));
+    }
+
+    private void OnClickAdd(InputField addInput,int ClassListCount,int primaryKeyCol,Button addButton)
+    {
+        addInput.text = ClassListCount.ToString();
+        InputField input = GetGridInput(ClassListCount + 1, primaryKeyCol);
+        input.interactable = true;
+        input.Select();
+        input.onEndEdit.AddListener((string value) => { });
+        addButton.onClick.RemoveAllListeners();
+        addButton.gameObject.SetActive(false);
     }
 
     private InputField GetGridInput(int row, int col)
@@ -121,12 +148,12 @@ public class TableContentFill : MonoBehaviour
     {
         InputField input = GetGridInput(row, col);
         input.text = txt;
-        string currentText = txt;
     }
 
     private void SetTableTxt(int row, int col, string txt, bool isPrimary)
     {
         InputField input = GetGridInput(row, col);
+        input.interactable = true;
         input.text = txt;
         string currentText = txt;
         if (isPrimary)
@@ -141,7 +168,6 @@ public class TableContentFill : MonoBehaviour
         input.onEndEdit.AddListener(
             (string value) =>
             {
-                Debug.Log(isPrimary);
                 //if value didn't change,return
                 if (value.Equals(currentText))
                 {
