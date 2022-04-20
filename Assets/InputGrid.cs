@@ -6,6 +6,7 @@ public class InputGrid : MonoBehaviour
 {
     public Button AddButton;
     public Button DeleteButton;
+    public string previousText;
     void Start()
     {
         

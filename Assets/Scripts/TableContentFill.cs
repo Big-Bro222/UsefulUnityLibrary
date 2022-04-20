@@ -1,6 +1,5 @@
 using DataBase;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -17,6 +16,7 @@ public class TableContentFill : MonoBehaviour
     [SerializeField] Button submitBtn;
     InputField[] tMP_InputFields;
     FieldInfo[] Fields;
+    FieldInfo primaryInfo;
     string tableName = "UserProfile";
     //the const column number
     int colNum = 10;
@@ -95,6 +95,7 @@ public class TableContentFill : MonoBehaviour
             if (Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey)
             {
                 primaryKeyCol = i+1;
+                primaryInfo = Fields[i];
             }
             SetTableTxt(firstRowindex, i + 1, name, Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey);
         }
@@ -133,8 +134,28 @@ public class TableContentFill : MonoBehaviour
         addInput.text = ClassListCount.ToString();
         InputField input = GetGridInput(ClassListCount + 1, primaryKeyCol);
         input.interactable = true;
+        input.textComponent.color = Color.red;
         input.Select();
-        input.onEndEdit.AddListener((string value) => { });
+        //input.OnSelect();
+        input.onEndEdit.AddListener((string value) => {
+            //detect null and resume the states
+
+            //detect new data insert
+            ExampleClassC data = Activator.CreateInstance<ExampleClassC>();
+            primaryInfo.SetValue(data, value);
+            sql.Insert<ExampleClassC>(data, tableName);
+            for(int i=0; i < Fields.Length; i++)
+            {
+                //set the input on the new line to interactable
+                int row = ClassListCount + 1;
+                int col = i + 1;
+                bool isPrimary = col.Equals(primaryKeyCol);
+                InputField inputsInline = GetGridInput(ClassListCount + 1, i + 1);
+                inputsInline.interactable = true;
+                inputsInline.onEndEdit.AddListener((string value)=> UpdateDataBase(value,"",col,row,isPrimary,inputsInline));
+            }
+            PopUpCreater.Instance.PopUp("Add new line with primary key "+value+" please fillin rest of the data", "Add data Success", InfoStatus.Success);
+        });
         addButton.onClick.RemoveAllListeners();
         addButton.gameObject.SetActive(false);
     }
@@ -155,6 +176,7 @@ public class TableContentFill : MonoBehaviour
         InputField input = GetGridInput(row, col);
         input.interactable = true;
         input.text = txt;
+        //get the text content for later usage
         string currentText = txt;
         if (isPrimary)
         {
@@ -164,32 +186,35 @@ public class TableContentFill : MonoBehaviour
         {
             input.textComponent.color = Color.black;
         }
-
+        //when the input changes, update the DataBase
         input.onEndEdit.AddListener(
-            (string value) =>
+            (string value) => UpdateDataBase(value,currentText,col,row,isPrimary, input)
+            ) ;
+    }
+
+    private void UpdateDataBase(string value,string previousText,int col,int row,bool isPrimary,InputField input)
+    {       
+            //if value didn't change,return
+            if (value.Equals(previousText))
             {
-                //if value didn't change,return
-                if (value.Equals(currentText))
-                {
-                    return;
-                }
-
-                //if PrimaryValue is empty, log Error
-                if (isPrimary && value.Equals(""))
-                {
-                    PopUpCreater.Instance.PopUp("Primary value cannot be null!", "Insert Fail", InfoStatus.Error);
-                    input.text = currentText;
-                    return;
-                }
-
-                FieldInfo fieldInfo = Fields[col - 1];
-                fieldInfo.SetValue(dataList.ElementAtOrDefault(row - 1), value);
-                sql.Insert<ExampleClassC>((ExampleClassC)dataList.ElementAtOrDefault(row - 1), tableName);
-                //dataList(row)
-                Debug.Log("Change the column of " + fieldInfo.Name + " to " + value);
-                PopUpCreater.Instance.PopUp("Change the column of " + fieldInfo.Name + " from " + currentText + " to " + value, "Insert Success", InfoStatus.Success);
+                return;
             }
-            );
+
+            //if PrimaryValue is empty, log Error
+            if (isPrimary && value.Equals(""))
+            {
+                PopUpCreater.Instance.PopUp("Primary value cannot be null!", "Insert Fail", InfoStatus.Error);
+                input.text = previousText;
+                return;
+            }
+
+            FieldInfo fieldInfo = Fields[col - 1];
+            fieldInfo.SetValue(dataList.ElementAtOrDefault(row - 1), value);
+            sql.Insert<ExampleClassC>((ExampleClassC)dataList.ElementAtOrDefault(row - 1), tableName);
+            //dataList(row)
+            Debug.Log("Change the column of " + fieldInfo.Name + " to " + value);
+            PopUpCreater.Instance.PopUp("Change the column of " + fieldInfo.Name + " from " + previousText + " to " + value, "Insert Success", InfoStatus.Success);
+        
     }
 
     public void SelectColumnBySql()
