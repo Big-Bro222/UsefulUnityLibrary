@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2073353651987555455}
   - component: {fileID: 897758641331336908}
   m_Layer: 5
-  m_Name: Close
+  m_Name: Delete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -280,6 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AddButton: {fileID: 2344911893139116365}
   DeleteButton: {fileID: 897758641331336908}
+  previousText: 
 --- !u!1 &4887618477251861512
 GameObject:
   m_ObjectHideFlags: 0

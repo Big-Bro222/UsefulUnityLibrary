@@ -111,15 +111,26 @@ public class TableContentFill : MonoBehaviour
         }
 
         //fill class numbers
-        for (int j = 0; j < ClassList.Count; j++)
+        for (int row = 0; row < ClassList.Count; row++)
         {
-            SetTableTxt(j + 1, 0, j.ToString());
-            GetGridInput(j + 1, 0).interactable = false;
-            for (int i = 0; i < Fields.Length; i++)
-            {
-                string Value = Fields[i].GetValue(ClassList[j]).ToString();
-                SetTableTxt(j + 1, i + 1, Value,Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey);
+                SetTableTxt(row + 1, 0, row.ToString());
+                GetGridInput(row + 1, 0).interactable = false;
+                for (int col = 0; col < Fields.Length+1; col++)
+                {
+                   if (col < Fields.Length)
+                   {
+                    string Value = Fields[col].GetValue(ClassList[row]).ToString();
+                    SetTableTxt(row + 1, col + 1, Value, Fields[col].GetCustomAttribute<ModelHelp>().IsPrimaryKey);
+                }
+                else
+                {
+                    Button deleteBtn=GetGridInput(row + 1, col + 1).GetComponent<InputGrid>().DeleteButton;
+                    deleteBtn.gameObject.SetActive(true);
+                    int temp = row;
+                    deleteBtn.onClick.AddListener(() => { DeleteData(temp); });
+                }
             }
+
         }
 
         //Add a button in the remain column for add new Input
@@ -127,6 +138,12 @@ public class TableContentFill : MonoBehaviour
         Button addButton= addInput.GetComponent<InputGrid>().AddButton;
         addButton.gameObject.SetActive(true);
         addButton.onClick.AddListener(() =>OnClickAdd(addInput,ClassList.Count,primaryKeyCol,addButton));
+    }
+
+    private void DeleteData(int row)
+    {
+        Debug.Log("Deleting the row index:" + row);
+        sql.DeleteByCol<ExampleClassC>("", "", tableName);
     }
 
     private void OnClickAdd(InputField addInput,int ClassListCount,int primaryKeyCol,Button addButton)
@@ -139,7 +156,18 @@ public class TableContentFill : MonoBehaviour
         //input.OnSelect();
         input.onEndEdit.AddListener((string value) => {
             //detect null and resume the states
-
+            //if PrimaryValue is empty, log Error
+            if (value.Equals(""))
+            {
+                PopUpCreater.Instance.PopUp("Primary value cannot be null!", "Insert Fail", InfoStatus.Error);
+                //set things back
+                addInput.text = "";
+                addButton.gameObject.SetActive(true);
+                addButton.onClick.AddListener(() => OnClickAdd(addInput, ClassListCount, primaryKeyCol, addButton));
+                input.interactable = false;
+                input.onEndEdit.RemoveAllListeners();
+                return;
+            }
             //detect new data insert
             ExampleClassC data = Activator.CreateInstance<ExampleClassC>();
             primaryInfo.SetValue(data, value);
@@ -199,7 +227,6 @@ public class TableContentFill : MonoBehaviour
             {
                 return;
             }
-
             //if PrimaryValue is empty, log Error
             if (isPrimary && value.Equals(""))
             {
@@ -207,14 +234,10 @@ public class TableContentFill : MonoBehaviour
                 input.text = previousText;
                 return;
             }
-
             FieldInfo fieldInfo = Fields[col - 1];
             fieldInfo.SetValue(dataList.ElementAtOrDefault(row - 1), value);
             sql.Insert<ExampleClassC>((ExampleClassC)dataList.ElementAtOrDefault(row - 1), tableName);
-            //dataList(row)
-            Debug.Log("Change the column of " + fieldInfo.Name + " to " + value);
-            PopUpCreater.Instance.PopUp("Change the column of " + fieldInfo.Name + " from " + previousText + " to " + value, "Insert Success", InfoStatus.Success);
-        
+            PopUpCreater.Instance.PopUp("Change the column of " + fieldInfo.Name + " from " + previousText + " to " + value, "Insert Success", InfoStatus.Success);        
     }
 
     public void SelectColumnBySql()
@@ -225,4 +248,6 @@ public class TableContentFill : MonoBehaviour
         RefreshTable();
         FillTableContent(columnList);
     }
+
+
 }
