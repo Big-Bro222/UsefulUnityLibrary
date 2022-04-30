@@ -112,7 +112,10 @@ namespace DataBase
                 dr.Close();
                 return TableList;
             }
-            dr.Close();
+            else
+            {
+                dr.Close();
+            }
             return null;
 
             
@@ -184,6 +187,7 @@ namespace DataBase
             stringBuilder.Remove(stringBuilder.Length - 1, 1);
             stringBuilder.Append(")");
             _sqlComm.CommandText = stringBuilder.ToString();
+            Debug.Log(stringBuilder.ToString());
             return _sqlComm.ExecuteNonQuery();
         }
 
@@ -264,6 +268,14 @@ namespace DataBase
             return _sqlComm.ExecuteNonQuery();
         }
 
+        public int DeleteByCol<T>(string colName,string colValue,string TableName)
+        {
+            var sql = $"DELETE FROM {TableName} where {colName} = '{colValue}'";
+            Debug.Log(sql);
+            _sqlComm.CommandText = sql;
+            return _sqlComm.ExecuteNonQuery();
+        }
+
         public int DeleteById<T>(List<int> ids)
         {
             var count = 0;
@@ -276,7 +288,7 @@ namespace DataBase
 
         public int DeleteBySql<T>(string sql)
         {
-            _sqlComm.CommandText = $"DELETE FROM{tableName} where {sql}";
+            _sqlComm.CommandText = $"DELETE FROM {tableName} where {sql}";
             return _sqlComm.ExecuteNonQuery();
         }
         #endregion
@@ -358,6 +370,7 @@ namespace DataBase
                 dr.Close();
                 return instance;
             }
+            dr.Close();
             return default (T);
         }
 
@@ -380,6 +393,7 @@ namespace DataBase
                 dr.Close();
                 return instance;
             }
+            dr.Close();
             return null;
         }
 
@@ -397,6 +411,11 @@ namespace DataBase
                 {
                     ret.Add(DataReaderToData<T>(dr));
                 }
+                dr.Close();
+            }
+            else
+            {
+                dr.Close();
             }
             return ret;
         }
@@ -432,8 +451,12 @@ namespace DataBase
                 {
                     ret.Add(DataReaderToData<T>(dr));
                 }
+                dr.Close();
             }
-            dr.Close();
+            else
+            {
+                dr.Close();
+            }
             return ret;
         }
         
