@@ -7,14 +7,10 @@ public class InputGrid : MonoBehaviour
     public Button AddButton;
     public Button DeleteButton;
     public string previousText;
-    void Start()
+    public void Clear()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GetComponent<InputField>().text = "";
+        AddButton.gameObject.SetActive(false);
+        DeleteButton.gameObject.SetActive(false);
     }
 }
