@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -112,30 +113,30 @@ public class CollectionHandler : MonoBehaviour
     void PrintList()
     {
         List <string> sd = new List <string>();
-        sd.Add("九");
+        sd.Add("9");
         Debug.Log(string.Format("List contains {0} items, the Capacity of the List is {1}",sd.Count,sd.Capacity));
-        sd.Add("八");
+        sd.Add("8");
         Debug.Log(string.Format("List contains {0} items, the Capacity of the List is {1}", sd.Count, sd.Capacity));
 
-        sd.Add( "七"); 
+        sd.Add( "7"); 
         Debug.Log(string.Format("List contains {0} items, the Capacity of the List is {1}", sd.Count, sd.Capacity));
 
-        sd.Add( "六");
+        sd.Add( "6");
         Debug.Log(string.Format("List contains {0} items, the Capacity of the List is {1}", sd.Count, sd.Capacity));
 
-        sd.Add("一");
+        sd.Add("1");
         Debug.Log(string.Format("List contains {0} items, the Capacity of the List is {1}", sd.Count, sd.Capacity));
 
-        sd.Add("五");
+        sd.Add("5");
         Debug.Log(string.Format("List contains {0} items, the Capacity of the List is {1}", sd.Count, sd.Capacity)); 
         
-        sd.Add("三");
+        sd.Add("3");
         Debug.Log(string.Format("List contains {0} items, the Capacity of the List is {1}", sd.Count, sd.Capacity)); 
         
-        sd.Add("二");
+        sd.Add("2");
         Debug.Log(string.Format("List contains {0} items, the Capacity of the List is {1}", sd.Count, sd.Capacity));
 
-        sd.Add("十");
+        sd.Add("10");
         Debug.Log(string.Format("List contains {0} items, the Capacity of the List is {1}", sd.Count, sd.Capacity));
 
         sd.TrimExcess();
@@ -143,6 +144,39 @@ public class CollectionHandler : MonoBehaviour
 
         Debug.Log("-----List-----");
         StringBuilder stringBuilder = new StringBuilder();
+        foreach (var item in sd)
+        {
+            stringBuilder.Append(item);
+            stringBuilder.Append(" ");
+        }
+        int index = sd.BinarySearch("5");
+        Debug.Log(index);
+        Debug.Log(stringBuilder.ToString());
+        stringBuilder.Clear();
+
+        IList<string> ro=sd.AsReadOnly();
+        try
+        {
+            ro.Add("s");
+        }
+        catch 
+        {
+            Debug.Log("the readonly representation of List cannot be modified");
+        }
+
+        sd.Sort();
+        foreach (var item in sd)
+        {
+            stringBuilder.Append(item);
+            stringBuilder.Append(" ");
+        }
+        index = sd.BinarySearch("5");
+        Debug.Log(index);
+        Debug.Log(stringBuilder.ToString());
+        stringBuilder.Clear();
+        
+        sd.Reverse();
+        stringBuilder.Append("Reverse ");
         foreach (var item in sd)
         {
             stringBuilder.Append(item);
