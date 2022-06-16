@@ -1,6 +1,5 @@
 using DataBase;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -17,6 +16,7 @@ public class TableContentFill : MonoBehaviour
     [SerializeField] Button submitBtn;
     InputField[] tMP_InputFields;
     FieldInfo[] Fields;
+    FieldInfo primaryInfo;
     string tableName = "UserProfile";
     //the const column number
     int colNum = 10;
@@ -77,16 +77,27 @@ public class TableContentFill : MonoBehaviour
     }
     private void FillTableContent<T>(List<T> ClassList) where T : class
     {
+        //disable all the inputfield at first and then enable them.
+        foreach (InputField inputField in tMP_InputFields)
+        {
+            inputField.interactable=false;
+        }
+
         dataList = ClassList;
         int firstRowindex = 0;
         int firstColindex = 0;
+        int primaryKeyCol = -1;
         Fields = typeof(T).GetFields();
         //SetUp title
         for (int i = 0; i < Fields.Length; i++)
         {
             string name = Fields[i].GetCustomAttribute<ModelHelp>().FieldName;
+            if (Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey)
+            {
+                primaryKeyCol = i+1;
+                primaryInfo = Fields[i];
+            }
             SetTableTxt(firstRowindex, i + 1, name, Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey);
-            GetGridInput(firstRowindex, i + 1).interactable = false;
         }
 
         //disable first row and first col
@@ -100,16 +111,81 @@ public class TableContentFill : MonoBehaviour
         }
 
         //fill class numbers
-        for (int j = 0; j < ClassList.Count; j++)
+        for (int row = 0; row < ClassList.Count; row++)
         {
-            SetTableTxt(j + 1, 0, j.ToString());
-            GetGridInput(j + 1, 0).interactable = false;
-            for (int i = 0; i < Fields.Length; i++)
-            {
-                string Value = Fields[i].GetValue(ClassList[j]).ToString();
-                SetTableTxt(j + 1, i + 1, Value,Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey);
+                SetTableTxt(row + 1, 0, row.ToString());
+                GetGridInput(row + 1, 0).interactable = false;
+                for (int col = 0; col < Fields.Length+1; col++)
+                {
+                   if (col < Fields.Length)
+                   {
+                    string Value = Fields[col].GetValue(ClassList[row]).ToString();
+                    SetTableTxt(row + 1, col + 1, Value, Fields[col].GetCustomAttribute<ModelHelp>().IsPrimaryKey);
+                }
+                else
+                {
+                    Button deleteBtn=GetGridInput(row + 1, col + 1).GetComponent<InputGrid>().DeleteButton;
+                    deleteBtn.gameObject.SetActive(true);
+                    int temp = row;
+                    deleteBtn.onClick.AddListener(() => { DeleteData(temp); });
+                }
             }
+
         }
+
+        //Add a button in the remain column for add new Input
+        InputField addInput = GetGridInput(ClassList.Count + 1, 0);
+        Button addButton= addInput.GetComponent<InputGrid>().AddButton;
+        addButton.gameObject.SetActive(true);
+        addButton.onClick.AddListener(() =>OnClickAdd(addInput,ClassList.Count,primaryKeyCol,addButton));
+    }
+
+    private void DeleteData(int row)
+    {
+        Debug.Log("Deleting the row index:" + row);
+        sql.DeleteByCol<ExampleClassC>("", "", tableName);
+    }
+
+    private void OnClickAdd(InputField addInput,int ClassListCount,int primaryKeyCol,Button addButton)
+    {
+        addInput.text = ClassListCount.ToString();
+        InputField input = GetGridInput(ClassListCount + 1, primaryKeyCol);
+        input.interactable = true;
+        input.textComponent.color = Color.red;
+        input.Select();
+        //input.OnSelect();
+        input.onEndEdit.AddListener((string value) => {
+            //detect null and resume the states
+            //if PrimaryValue is empty, log Error
+            if (value.Equals(""))
+            {
+                PopUpCreater.Instance.PopUp("Primary value cannot be null!", "Insert Fail", InfoStatus.Error);
+                //set things back
+                addInput.text = "";
+                addButton.gameObject.SetActive(true);
+                addButton.onClick.AddListener(() => OnClickAdd(addInput, ClassListCount, primaryKeyCol, addButton));
+                input.interactable = false;
+                input.onEndEdit.RemoveAllListeners();
+                return;
+            }
+            //detect new data insert
+            ExampleClassC data = Activator.CreateInstance<ExampleClassC>();
+            primaryInfo.SetValue(data, value);
+            sql.Insert<ExampleClassC>(data, tableName);
+            for(int i=0; i < Fields.Length; i++)
+            {
+                //set the input on the new line to interactable
+                int row = ClassListCount + 1;
+                int col = i + 1;
+                bool isPrimary = col.Equals(primaryKeyCol);
+                InputField inputsInline = GetGridInput(ClassListCount + 1, i + 1);
+                inputsInline.interactable = true;
+                inputsInline.onEndEdit.AddListener((string value)=> UpdateDataBase(value,"",col,row,isPrimary,inputsInline));
+            }
+            PopUpCreater.Instance.PopUp("Add new line with primary key "+value+" please fillin rest of the data", "Add data Success", InfoStatus.Success);
+        });
+        addButton.onClick.RemoveAllListeners();
+        addButton.gameObject.SetActive(false);
     }
 
     private InputField GetGridInput(int row, int col)
@@ -121,13 +197,14 @@ public class TableContentFill : MonoBehaviour
     {
         InputField input = GetGridInput(row, col);
         input.text = txt;
-        string currentText = txt;
     }
 
     private void SetTableTxt(int row, int col, string txt, bool isPrimary)
     {
         InputField input = GetGridInput(row, col);
+        input.interactable = true;
         input.text = txt;
+        //get the text content for later usage
         string currentText = txt;
         if (isPrimary)
         {
@@ -137,33 +214,30 @@ public class TableContentFill : MonoBehaviour
         {
             input.textComponent.color = Color.black;
         }
-
+        //when the input changes, update the DataBase
         input.onEndEdit.AddListener(
-            (string value) =>
+            (string value) => UpdateDataBase(value,currentText,col,row,isPrimary, input)
+            ) ;
+    }
+
+    private void UpdateDataBase(string value,string previousText,int col,int row,bool isPrimary,InputField input)
+    {       
+            //if value didn't change,return
+            if (value.Equals(previousText))
             {
-                Debug.Log(isPrimary);
-                //if value didn't change,return
-                if (value.Equals(currentText))
-                {
-                    return;
-                }
-
-                //if PrimaryValue is empty, log Error
-                if (isPrimary && value.Equals(""))
-                {
-                    PopUpCreater.Instance.PopUp("Primary value cannot be null!", "Insert Fail", InfoStatus.Error);
-                    input.text = currentText;
-                    return;
-                }
-
-                FieldInfo fieldInfo = Fields[col - 1];
-                fieldInfo.SetValue(dataList.ElementAtOrDefault(row - 1), value);
-                sql.Insert<ExampleClassC>((ExampleClassC)dataList.ElementAtOrDefault(row - 1), tableName);
-                //dataList(row)
-                Debug.Log("Change the column of " + fieldInfo.Name + " to " + value);
-                PopUpCreater.Instance.PopUp("Change the column of " + fieldInfo.Name + " from " + currentText + " to " + value, "Insert Success", InfoStatus.Success);
+                return;
             }
-            );
+            //if PrimaryValue is empty, log Error
+            if (isPrimary && value.Equals(""))
+            {
+                PopUpCreater.Instance.PopUp("Primary value cannot be null!", "Insert Fail", InfoStatus.Error);
+                input.text = previousText;
+                return;
+            }
+            FieldInfo fieldInfo = Fields[col - 1];
+            fieldInfo.SetValue(dataList.ElementAtOrDefault(row - 1), value);
+            sql.Insert<ExampleClassC>((ExampleClassC)dataList.ElementAtOrDefault(row - 1), tableName);
+            PopUpCreater.Instance.PopUp("Change the column of " + fieldInfo.Name + " from " + previousText + " to " + value, "Insert Success", InfoStatus.Success);        
     }
 
     public void SelectColumnBySql()
@@ -174,4 +248,6 @@ public class TableContentFill : MonoBehaviour
         RefreshTable();
         FillTableContent(columnList);
     }
+
+
 }
