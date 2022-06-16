@@ -270,7 +270,8 @@ namespace DataBase
 
         public int DeleteByCol<T>(string colName,string colValue,string TableName)
         {
-            var sql = $"DELETE FROM {TableName} where {colName} ={colValue}";
+            var sql = $"DELETE FROM {TableName} where {colName} = '{colValue}'";
+            Debug.Log(sql);
             _sqlComm.CommandText = sql;
             return _sqlComm.ExecuteNonQuery();
         }
