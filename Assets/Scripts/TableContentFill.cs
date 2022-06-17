@@ -30,7 +30,7 @@ public class TableContentFill : MonoBehaviour
         table = transform.Find("TableContent");
         tabsContainer = transform.Find("TabsContainer");
         tMP_InputFields = table.GetComponentsInChildren<InputField>();
-        submitBtn.onClick.AddListener(SelectColumnBySql);
+        //submitBtn.onClick.AddListener(SelectColumnBySql);
 
 
         //Create SqliteConnection
@@ -94,7 +94,7 @@ public class TableContentFill : MonoBehaviour
             string name = Fields[i].GetCustomAttribute<ModelHelp>().FieldName;
             if (Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey)
             {
-                primaryKeyCol = i + 1;
+                primaryKeyCol = i+1;
                 primaryInfo = Fields[i];
             }
             SetTableTxt(firstRowindex, i + 1, name, Fields[i].GetCustomAttribute<ModelHelp>().IsPrimaryKey);
@@ -172,15 +172,30 @@ public class TableContentFill : MonoBehaviour
                 addInput.text = "";
                 addButton.gameObject.SetActive(true);
                 addButton.onClick.AddListener(() => OnClickAdd(addInput, ClassListCount, primaryKeyCol, addButton));
-                input.interactable = false;
                 input.onEndEdit.RemoveAllListeners();
+                input.interactable = false;
                 return;
             }
             //detect new data insert
             ExampleClassC data = Activator.CreateInstance<ExampleClassC>();
             dataList= dataList.Concat(new[] { data });
             primaryInfo.SetValue(data, value);
-            sql.Insert<ExampleClassC>(data, tableName);
+            int insertSuccess = sql.Insert<ExampleClassC>(data, tableName,false);
+            if (insertSuccess >= 0)
+            {
+                PopUpCreater.Instance.PopUp("Add new line with primary key " + value + " please fillin rest of the data", "Add data Success", InfoStatus.Success);
+            }
+            else
+            {
+                PopUpCreater.Instance.PopUp("Failed to add new data, see console for more details", "Insert Fail", InfoStatus.Error);
+                input.text = "";
+                addButton.gameObject.SetActive(true);
+                addButton.onClick.AddListener(() => OnClickAdd(addInput, ClassListCount, primaryKeyCol, addButton));
+                input.onEndEdit.RemoveAllListeners();
+                input.interactable = false;
+                return;
+            }
+
             for (int i = 0; i < Fields.Length; i++)
             {
                 //set the input on the new line to interactable
@@ -197,6 +212,7 @@ public class TableContentFill : MonoBehaviour
             int temp = ClassListCount;
             deleteBtn.onClick.AddListener(() =>
             {
+                Debug.Log("Delete");
                 DeleteData(temp);
                 deleteBtn.onClick.RemoveAllListeners();
                 RefreshTable();
@@ -206,8 +222,6 @@ public class TableContentFill : MonoBehaviour
             Button nextaddButton = nextaddInput.GetComponent<InputGrid>().AddButton;
             nextaddButton.gameObject.SetActive(true);
             nextaddButton.onClick.AddListener(() => OnClickAdd(nextaddInput, dataList.Count(), primaryKeyCol, nextaddButton));
-
-            PopUpCreater.Instance.PopUp("Add new line with primary key " + value + " please fillin rest of the data", "Add data Success", InfoStatus.Success);
             input.onEndEdit.RemoveAllListeners();
         });
         addButton.onClick.RemoveAllListeners();

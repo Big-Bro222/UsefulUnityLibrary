@@ -39,7 +39,7 @@ public class PopUp : MonoBehaviour
 
     void Start()
     {
-        Invoke("DestroyPopUp", 3f);
+        Invoke("DestroyPopUp", 5f);
     }
 
     private void DestroyPopUp()

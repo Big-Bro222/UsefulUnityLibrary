@@ -143,7 +143,15 @@ namespace DataBase
         #endregion
 
         #region Insert
-        public int Insert<T>(T t,string TableName="")where T : class
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t"></param>
+        /// <param name="TableName"></param>
+        /// <param name="enableReplace">if the replace of data is enabled if the primary key is duplicated, otherwise will throw an exception</param>
+        /// <returns></returns>
+        public int Insert<T>(T t,string TableName="",bool enableReplace = true) where T : class
         {
             if (!TableName.Equals(""))
             {
@@ -156,7 +164,14 @@ namespace DataBase
             }
             var type = typeof(T);
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append($"INSERT OR REPLACE INTO {tableName} (");
+            if (enableReplace)
+            {
+                stringBuilder.Append($"INSERT OR REPLACE INTO {tableName} (");
+            }
+            else
+            {
+                stringBuilder.Append($"INSERT INTO {tableName} (");
+            }
 
             var fieldInfos = type.GetFields();
             foreach(var f in fieldInfos)
@@ -188,9 +203,20 @@ namespace DataBase
             stringBuilder.Append(")");
             _sqlComm.CommandText = stringBuilder.ToString();
             Debug.Log(stringBuilder.ToString());
-            return _sqlComm.ExecuteNonQuery();
+            int result = -1;
+            try
+            {
+                result= _sqlComm.ExecuteNonQuery();
+            }
+            catch(SqliteException e)
+            {
+                Debug.Log(e.Message);
+            }
+            return result;
         }
 
+        [Obsolete]
+        //This is an example to show how to insert a list of Data, It's an obsolet function, so the founctionality is not garranteed 
         public int Insert<T>(List<T> tList,string TableName) where T : class
         {
 

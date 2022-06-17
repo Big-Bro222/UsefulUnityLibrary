@@ -7,9 +7,9 @@ using DataBase;
 public class ExampleClassC: ExampleBase
 {
 
-    [ModelHelp(true, "Uuid", "string")]
+    [ModelHelp(true, "Uuid", "string", true, false)]
     public string uuid;
 
-    [ModelHelp(true, "Phone", "string", true, false)]
+    [ModelHelp(true, "Phone", "string")]
     public string phone;
 }
