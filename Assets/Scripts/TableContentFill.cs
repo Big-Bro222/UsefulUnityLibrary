@@ -14,6 +14,7 @@ public class TableContentFill : MonoBehaviour
     Transform tabsContainer;
     [SerializeField] TMP_InputField sqlInput;
     [SerializeField] Button submitBtn;
+    [SerializeField] Button cancelSelectionBtn;
     InputField[] tMP_InputFields;
     FieldInfo[] Fields;
     FieldInfo primaryInfo;
@@ -21,16 +22,16 @@ public class TableContentFill : MonoBehaviour
     //the const column number
     int colNum = 10;
     int rowNum = 10;
-
+    int primaryKeyCol = -1;
     int classCount = 0;
     int classFieldCount = 0;
-    IEnumerable<System.Object> dataList;
+    IEnumerable<IData> dataList;
     private void Start()
     {
         table = transform.Find("TableContent");
         tabsContainer = transform.Find("TabsContainer");
         tMP_InputFields = table.GetComponentsInChildren<InputField>();
-        //submitBtn.onClick.AddListener(SelectColumnBySql);
+        submitBtn.onClick.AddListener(SelectSqlByUuid);
 
 
         //Create SqliteConnection
@@ -44,7 +45,6 @@ public class TableContentFill : MonoBehaviour
             tabBtn.GetComponentInChildren<TextMeshProUGUI>().text = tableName;
             //bind btn action
         }
-
         //Show the table
         ShowTable<ExampleClassC>(tableName);
     }
@@ -81,12 +81,12 @@ public class TableContentFill : MonoBehaviour
         foreach (InputField inputField in tMP_InputFields)
         {
             inputField.interactable = false;
+            inputField.GetComponent<Image>().color = Color.white;
         }
 
-        dataList = ClassList;
+        dataList = (IEnumerable<IData>)ClassList;
         int firstRowindex = 0;
         int firstColindex = 0;
-        int primaryKeyCol = -1;
         Fields = typeof(T).GetFields();
         //SetUp title
         for (int i = 0; i < Fields.Length; i++)
@@ -148,9 +148,9 @@ public class TableContentFill : MonoBehaviour
     private void DeleteData(int row)
     {
         string colName = primaryInfo.Name;
-        string colValue = primaryInfo.GetValue(dataList.ElementAtOrDefault(row)).ToString();
+        string colValue = primaryInfo.GetValue(dataList.ElementAt(row)).ToString();
         sql.DeleteByCol<ExampleClassC>(colName, colValue, tableName);
-        
+        PopUpCreater.Instance.PopUp("Delete the line with primary value: <color=green>" + colValue, "</color> Delete Success",InfoStatus.Success);        
     }
 
     private void OnClickAdd(InputField addInput, int ClassListCount, int primaryKeyCol, Button addButton)
@@ -183,7 +183,7 @@ public class TableContentFill : MonoBehaviour
             int insertSuccess = sql.Insert<ExampleClassC>(data, tableName,false);
             if (insertSuccess >= 0)
             {
-                PopUpCreater.Instance.PopUp("Add new line with primary key " + value + " please fillin rest of the data", "Add data Success", InfoStatus.Success);
+                PopUpCreater.Instance.PopUp("Add new line with primary key <color=green>" + value + "</color> please fillin rest of the data", "Add data Success", InfoStatus.Success);
             }
             else
             {
@@ -212,7 +212,6 @@ public class TableContentFill : MonoBehaviour
             int temp = ClassListCount;
             deleteBtn.onClick.AddListener(() =>
             {
-                Debug.Log("Delete");
                 DeleteData(temp);
                 deleteBtn.onClick.RemoveAllListeners();
                 RefreshTable();
@@ -276,18 +275,54 @@ public class TableContentFill : MonoBehaviour
         }
         FieldInfo fieldInfo = Fields[col - 1];
         fieldInfo.SetValue(dataList.ElementAtOrDefault(row - 1), value);
-        sql.Insert<ExampleClassC>((ExampleClassC)dataList.ElementAtOrDefault(row - 1), tableName);
-        PopUpCreater.Instance.PopUp("Change the column of " + fieldInfo.Name + " from " + previousText + " to " + value, "Insert Success", InfoStatus.Success);
+        sql.Insert<ExampleClassC>((ExampleClassC)dataList.ElementAt(row - 1), tableName);
+        if (isPrimary)
+        {
+            PopUpCreater.Instance.PopUp("Insert the column of <color=green>" + fieldInfo.Name + "</color> from <color=green>" + previousText + "</color> to <color=green>" + value, "</color> Insert Success", InfoStatus.Success);
+        }
+        else
+        {
+            PopUpCreater.Instance.PopUp("Change the column of <color=green>" + fieldInfo.Name + "</color> from <color=green>" + previousText + "</color> to <color=green>" + value, "</color> Update Success", InfoStatus.Success);
+        }
+
     }
 
-    public void SelectColumnBySql()
+    public void SelectSqlByUuid()
     {
-        string sqlCommand = sqlInput.text;
-        string[] sqlArray = sqlCommand.Split(',');
-        List<string> columnList = sql.SelectColumnBySql<string>(sqlArray[0], sqlArray[1], tableName);
-        RefreshTable();
-        FillTableContent(columnList);
+        string uuid = sqlInput.text;
+        int index = -1;
+        ExampleClassC instance = sql.SelectedById<ExampleClassC>(uuid, tableName);
+        for (int i = 0; i < dataList.Count<IData>(); i++)
+        {
+            ExampleClassC data = (ExampleClassC) dataList.ElementAt(i);
+            if (data.uuid.Equals(instance.uuid))
+            {
+                index = i;
+                break;
+            }                
+        }
+        List<InputField> inputs = new List<InputField>();
+        for (int j=0;j< Fields.Length+1; j++)
+        {
+            //Highlight the selection
+            InputField input = GetGridInput(index + 1, j);
+            input.GetComponent<Image>().color = Color.green;
+            inputs.Add(input);
+        }
+        cancelSelectionBtn.interactable = true;
+        PopUpCreater.Instance.PopUp("Select the data with uuid: <color=green>" + uuid+ "</color> , please cancel the selection to continue", "Select Success", InfoStatus.Success);
+        cancelSelectionBtn.onClick.RemoveAllListeners();
+        cancelSelectionBtn.onClick.AddListener( ()=> CancelSelection(inputs));
     }
 
-
+    private void CancelSelection(List<InputField> inputs)
+    {
+        foreach (InputField input in inputs)
+        {
+            input.GetComponent<Image>().color = Color.white;
+        }
+        PopUpCreater.Instance.PopUp("Cancel Selection", "Cancel Success", InfoStatus.Success);
+        cancelSelectionBtn.onClick.RemoveAllListeners();
+        cancelSelectionBtn.interactable = false;
+    }
 }

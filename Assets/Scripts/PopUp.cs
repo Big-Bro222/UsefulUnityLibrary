@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public enum InfoStatus
 {
@@ -14,12 +15,14 @@ public class PopUp : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textMesh;
     [SerializeField] TextMeshProUGUI captionTextMesh;
+    [SerializeField] TextMeshProUGUI timeTextMesh;
 
     // Start is called before the first frame update
     public void SetText(string txt,string caption,InfoStatus info)
     {
         textMesh.text = txt;
-        captionTextMesh.text = caption;
+        captionTextMesh.text = caption;        
+        timeTextMesh.text = DateTime.Now.ToString();
         switch (info)
         {
             case InfoStatus.Success:
@@ -37,12 +40,12 @@ public class PopUp : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        Invoke("DestroyPopUp", 5f);
-    }
+    //void Start()
+    //{
+    //    Invoke("DestroyPopUp", 5f);
+    //}
 
-    private void DestroyPopUp()
+    public void DestroyPopUp()
     {
         Destroy(gameObject);
     }

@@ -386,8 +386,8 @@ namespace DataBase
             {
                 tableName = TableName;
             }
-            //Todo Uuid�ĳ�����
             var sql = $"SELECT * FROM {tableName} where Uuid='{id}'";
+            Debug.Log(sql);
             _sqlComm.CommandText = sql;
             var dr = _sqlComm.ExecuteReader();
             if (dr != null && dr.Read())
