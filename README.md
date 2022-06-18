@@ -9,27 +9,27 @@ The sqlite plugin supports `Insert`, `Delete`, `Modify` , `Query` functions
 1. Show Data from .db file
 2. Add and Update data
     
-    ![Insert&Replace.gif](Github%20readme%20fb49c5af247044de9c1134f90fd859b4/InsertReplace.gif)
+    ![Insert&Replace.gif](Assets/Documentation/Insert&Replace.gif)
     
 3. Delete data
     
-    ![Delete.gif](Github%20readme%20fb49c5af247044de9c1134f90fd859b4/Delete.gif)
+    ![Delete.gif](Assets/Documentation/Delete.gif)
     
 4. Select data by uuid
     
-    ![Select.gif](Github%20readme%20fb49c5af247044de9c1134f90fd859b4/Select.gif)
+    ![Select.gif](Assets/Documentation/Select.gif)
     
 5. Handle data error
     
-    ![Error.gif](Github%20readme%20fb49c5af247044de9c1134f90fd859b4/Error.gif)
+    ![Error.gif](Assets/Documentation/Error.gif)
     
 
 # Getting Started
 
 1. Clone the project and checkout to the `sqlite` branch
 2. Open the project with any version of Unity beyond Unity 2017
-3. The main behavior of UI logic is in the  `[TableContentFill.cs](https://github.com/Big-Bro222/UsefulUnityLibrary/blob/sqlite/Assets/Scripts/TableContentFill.cs)`
-4. Main SQLite commands are in the `[SqlDbCommand.cs](https://github.com/Big-Bro222/UsefulUnityLibrary/blob/sqlite/Assets/Scripts/SqlDbCommand.cs)`
+3. The main behavior of UI logic is in the  [TableContentFill.cs](https://github.com/Big-Bro222/UsefulUnityLibrary/blob/sqlite/Assets/Scripts/TableContentFill.cs)
+4. Main SQLite commands are in the [SqlDbCommand.cs](https://github.com/Big-Bro222/UsefulUnityLibrary/blob/sqlite/Assets/Scripts/SqlDbCommand.cs)
 5. To fulfill the SQLite function, the two .dll files in the Plugin Folder are essential
 
 # Note
