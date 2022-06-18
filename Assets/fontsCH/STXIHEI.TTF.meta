@@ -1,21 +1,3 @@
-fileFormatVersion: 2
-guid: ca9e5b2b807ddf0499caf47991cec253
-TrueTypeFontImporter:
-  externalObjects: {}
-  serializedVersion: 4
-  fontSize: 16
-  forceTextureCase: -2
-  characterSpacing: 0
-  characterPadding: 1
-  includeFontData: 1
-  fontNames:
-  - STXihei
-  fallbackFontReferences: []
-  customCharacters: 
-  fontRenderingMode: 0
-  ascentCalculationMode: 1
-  useLegacyBoundsCalculation: 0
-  shouldRoundAdvanceValue: 1
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+version https://git-lfs.github.com/spec/v1
+oid sha256:939ef51048fcc0b9c5887814baa45755b65ae62e5fa20251eb0f6ce26dfe9fc4
+size 472

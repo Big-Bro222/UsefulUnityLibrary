@@ -1,24 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using DataBase;
-
-
-public class ExampleClassB
-{
-    [ModelHelp(true, "Uuid", "string")]
-    public string uuid;
-    [ModelHelp(true, "Phone", "string", true, false)]
-    public string phone;
-    [ModelHelp(true, "Hair", "string")]
-    public string hair;
-    [ModelHelp(true, "Cloth", "string")]
-    public string cloth;
-    [ModelHelp(true, "Pants", "string")]
-    public string pants;
-    [ModelHelp(true, "Shoes", "string")]
-    public string shoes;
-    [ModelHelp(true, "Skin", "string")]
-    public string skin;
-
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:cbd0e191303a18c09317d44cdabc28ee39abe09d49e7c11995a9e6b9854f24f5
+size 598

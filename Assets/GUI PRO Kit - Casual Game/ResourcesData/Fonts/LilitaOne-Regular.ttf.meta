@@ -1,22 +1,3 @@
-fileFormatVersion: 2
-guid: c16eb7d7c3953489db00312b8b09df4b
-TrueTypeFontImporter:
-  externalObjects: {}
-  serializedVersion: 4
-  fontSize: 16
-  forceTextureCase: -2
-  characterSpacing: 0
-  characterPadding: 1
-  includeFontData: 1
-  fontName: Lilita One
-  fontNames:
-  - Lilita One
-  fallbackFontReferences: []
-  customCharacters: 
-  fontRenderingMode: 0
-  ascentCalculationMode: 1
-  useLegacyBoundsCalculation: 0
-  shouldRoundAdvanceValue: 1
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+version https://git-lfs.github.com/spec/v1
+oid sha256:df64efb8037254bf6d8b0a1d288a1becc2040076d1707b26c4b932dc8da6697f
+size 498

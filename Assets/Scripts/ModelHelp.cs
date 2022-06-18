@@ -1,34 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace DataBase
-{
-    public class ModelHelp : Attribute
-    {
-       public bool IsCreated { get; set; }
-        public string FieldName { get; set; }
-        public string Type { get; set; }
-        public bool IsPrimaryKey { get; set; }
-
-        public bool IsCanbeNull { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="isCreated"></param>
-        /// <param name="fieldName">Name in the table</param>
-        /// <param name="type">type of the parameter</param>
-        /// <param name="isPrimaryKey">if is primary</param>
-        /// <param name="isCanbeNull">Can be Null or not</param>
-        public ModelHelp(bool isCreated, string fieldName, string type,bool isPrimaryKey=false,bool isCanbeNull=true)
-        {
-            IsCreated = isCreated;
-            FieldName = fieldName;
-            Type = type;
-            IsPrimaryKey = isPrimaryKey;
-            IsCanbeNull = isCanbeNull;
-        }
-    }
-}
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:0bccf016ac11ac3309367d1daf9598ecd7856f54b0328af34c0a57ca65b4ff7a
+size 1058

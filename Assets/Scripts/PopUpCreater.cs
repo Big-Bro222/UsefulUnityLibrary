@@ -1,17 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PopUpCreater : MonoSingleton<PopUpCreater>
-{
-    GameObject messagePrefab;
-    private void Start()
-    {
-        messagePrefab = Resources.Load<GameObject>("PopUp");
-    }
-    public void PopUp(string content,string caption,InfoStatus infoStatus)
-    {
-        GameObject popUpGo=Instantiate(messagePrefab, transform);
-        popUpGo.GetComponent<PopUp>().SetText(content,caption,infoStatus);
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:1b1f93dd1b746dc607f8a63e07d131add585fc1153fdc822f882d7f60ebe3a62
+size 496

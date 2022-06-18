@@ -1,25 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using DataBase;
-
-
-public class ExampleClassA: ExampleBase
-{
-
-    [ModelHelp(true, "Class", "string")]
-    public string[] className;
-
-    [ModelHelp(true, "CoreClass", "string")]
-    public string coreClass;
-
-    [ModelHelp(true, "X", "double")]
-    public double x;
-
-    [ModelHelp(true, "Y", "double")]
-    public double y;
-
-    [ModelHelp(true, "Z", "double")]
-    public double z;
-
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f133d4a188770a3d89b1414135f253660405998635797b72c009720f38a2d291
+size 467
