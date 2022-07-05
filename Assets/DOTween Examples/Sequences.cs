@@ -57,4 +57,14 @@ public class Sequences : MonoBehaviour
 	{
 		s.Kill();
 	}
+
+	public void Restart()
+    {
+		s.Restart();
+    }
+
+	public void Rewind()
+    {
+		s.Rewind();
+    }
 }
