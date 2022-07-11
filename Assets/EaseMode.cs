@@ -13,7 +13,7 @@ public class EaseMode : MonoBehaviour
     public void SetEase( Ease EaseType)
     {
         float x = ui.anchoredPosition.x;
-        ui.DOAnchorPosX(x+offset,2f).SetLoops(-1).SetEase(EaseType);
+        ui.DOAnchorPosX(x+offset,4f).SetLoops(-1).SetEase(EaseType);
         textMeshProUGUI.text = EaseType.ToString();
     }
 }
