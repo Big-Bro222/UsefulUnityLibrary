@@ -749,7 +749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3289204bf275dad48a0d7eb30cae251c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dotweenScenes: 7
+  dotweenScenes: 2
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,7 +927,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518017725}
+      - m_Target: {fileID: 706324209}
         m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
         m_MethodName: Load
         m_Mode: 1
@@ -1291,7 +1291,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518017725}
+      - m_Target: {fileID: 1018724000}
         m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
         m_MethodName: Load
         m_Mode: 1
@@ -1438,7 +1438,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518017725}
+      - m_Target: {fileID: 1081289782}
         m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
         m_MethodName: Load
         m_Mode: 1
@@ -1719,7 +1719,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518017725}
+      - m_Target: {fileID: 1294057259}
         m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
         m_MethodName: Load
         m_Mode: 1
@@ -2074,7 +2074,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518017725}
+      - m_Target: {fileID: 1404574288}
         m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
         m_MethodName: Load
         m_Mode: 1
@@ -2321,7 +2321,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 518017725}
+      - m_Target: {fileID: 1506188596}
         m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
         m_MethodName: Load
         m_Mode: 1

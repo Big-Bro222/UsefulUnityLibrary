@@ -8,11 +8,12 @@ public enum DotweenScenes
 {
     TweenerControl,
     Animation,
-    Basics,
+    MoveMent,
     Main,
     Materials,
     Sequences,
     UGUI,
+    Paths,
     NiL
 }
 
@@ -23,6 +24,7 @@ public class LoadScene : MonoBehaviour
     public void Load()
     {
         string sceneName = Enum.GetName(typeof(DotweenScenes), dotweenScenes);
+        Debug.Log(sceneName);
         SceneManager.LoadScene(sceneName);
     }
 }
