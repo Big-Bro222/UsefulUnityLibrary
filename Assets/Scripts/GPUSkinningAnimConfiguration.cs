@@ -9,6 +9,8 @@ public class GPUSkinningAnimConfiguration : ScriptableObject
     public int boneCount = 0;
     public AnimationInfo[] animationInfos = null;
     public Mesh bakedMesh;
+    public Texture2D animationTexture;
+    public List<GPUAnimationClip> animationClips=new List<GPUAnimationClip>();
 }
 
 [System.Serializable]

@@ -32,21 +32,23 @@ public class GPUBaker : MonoBehaviour
     }
 
     public UVCHANNEL outW;
-
     public UVCHANNEL outI;
-
     public Mesh mesh;
+
     [HideInInspector] public ComputeShader computeShader;
     [HideInInspector] public Button button;
 
+    private void OnValidate()
+    {
 
+    }
     public void Bake()
     {
-            if (mesh == null) throw new Exception("请添加Mesh");
+        if (mesh == null) throw new Exception("请添加Mesh");
 
-            if (outI == outW) throw new Exception("频道冲突，请重选");
+        if (outI == outW) throw new Exception("频道冲突，请重选");
 
-            BakeBoneTexture();        
+        BakeBoneTexture();
     }
 
     private void BakeBoneTexture()
@@ -56,9 +58,6 @@ public class GPUBaker : MonoBehaviour
         var clips = animator.runtimeAnimatorController.animationClips;
         var skin = GetComponentInChildren<SkinnedMeshRenderer>();
         var boneCount = mesh.bindposes.Length;
-        GPUSkinningAnimConfiguration sac = ScriptableObject.CreateInstance<GPUSkinningAnimConfiguration>();
-        sac.boneCount = boneCount;
-        sac.modelName = name;
 
         animator.speed = 1;
         var textWidth = boneCount;
@@ -67,32 +66,52 @@ public class GPUBaker : MonoBehaviour
         List<int> frameCounts = new List<int>();
         List<int> frameRates = new List<int>();
 
+        ///Mapping UV to a new Mesh
+        var bakedMesh = new Mesh();
+        bakedMesh = Instantiate(mesh);
+        bakedMesh.name = string.Format("{0}.mesh", name);
+        MappingBoneIndexAndWeightToMeshUV(bakedMesh, UVChannel.UV2, UVChannel.UV3);
+        
+        List<GPUAnimationClip> gpuClips = new List<GPUAnimationClip>();
+
         foreach (var clip in clips)
         {
             Debug.Log(clip.name);
             int frameCount = (int)(clip.frameRate * clip.length);
             Texture2D boneTex = CreateBoneTex(animator, skin, clip, mesh, 512, frameCount);
-            boneTex.name = string.Format("{0}.{1}.BoneMatrix", name, clip.name);
+            boneTex.name = string.Format("{0}", clip.name);
             textures.Add(boneTex);
             frameCounts.Add(frameCount);
             frameRates.Add((int)clip.frameRate);
             /*Useless, used for demo
               SaveAsJPG(boneTex, Path.Combine("Assets/BakedDemoImgs"), boneTex.name);
             */
-
             //Get singe baked matrixs
             AssetDatabase.CreateAsset(boneTex, Path.Combine("Assets/BakedMatrixs", boneTex.name + ".asset"));
+
+            GPUAnimationClip gpuClip = ScriptableObject.CreateInstance<GPUAnimationClip>();
+            gpuClip.boneCount = boneCount;
+            gpuClip.StartFrame = 0;
+            gpuClip.FrameCount = frameCount;
+            gpuClip.FrameRate = (int) clip.frameRate;
+            gpuClip.animTexture = boneTex;
+            gpuClips.Add(gpuClip);
+            AssetDatabase.CreateAsset(gpuClip, Path.Combine("Assets/AnimationClips", clip.name + ".asset"));
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
 
-        ///Mapping UV to a new Mesh
-        var bakedMesh = new Mesh();
-        bakedMesh = Instantiate(mesh);
-        bakedMesh.name = string.Format("{0}.mesh", name);
-        MappingBoneIndexAndWeightToMeshUV(bakedMesh, UVChannel.UV2, UVChannel.UV3);
 
-        sac.bakedMesh = bakedMesh;
+        GameObject prefab = new GameObject(name + "_Baked");
+        MeshFilter meshFilter =prefab.AddComponent<MeshFilter>();
+        meshFilter.mesh = bakedMesh;
+        MeshRenderer meshRenderer = prefab.AddComponent<MeshRenderer>();
+        Material mat = new Material(Shader.Find("Custom/BoneAnimationShader"));
+        meshRenderer.material = mat;
+        GPUAnimationController ac = prefab.AddComponent<GPUAnimationController>();
+        ac.animationClips = gpuClips;
+        ac._defaultAnimationClip = gpuClips[0];
+
         var start = 0;
         var height = 0;
         for (int i = 0; i < textures.Count; ++i)
@@ -103,14 +122,7 @@ public class GPUBaker : MonoBehaviour
             animationInfos.Add(info);
         }
 
-        sac.animationInfos = animationInfos.ToArray();
-
-        var combined = combineTextures(textures);
-        combined.name = name;
-        AssetDatabase.CreateAsset(combined, Path.Combine("Assets/BakedMatrixs", combined.name + ".ALL.asset"));
-
-        AssetDatabase.CreateAsset(bakedMesh, Path.Combine("Assets/BakedMesh", bakedMesh.name + ".BakedMesh" + ".mesh"));
-        AssetDatabase.CreateAsset(sac, Path.Combine("Assets/ScriptableObject", name + ".asset"));
+        AssetDatabase.CreateAsset(bakedMesh, Path.Combine("Assets/BakedMesh", name + ".BakedMesh" + ".mesh"));
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
@@ -149,10 +161,6 @@ public class GPUBaker : MonoBehaviour
         int width, int animFrameCount)
     {
         var bindPoses = mesh.bindposes;
-        foreach(Matrix4x4 matrix in bindPoses)
-        {
-            Debug.Log(matrix);
-        }
         Debug.Log(bindPoses.Length);
         var bones = skinnedMeshRenderer.bones;
 
@@ -166,7 +174,6 @@ public class GPUBaker : MonoBehaviour
 
         //4x4matrix of 3D translation,only need to save the first three rows, the last one is always (0,0,0,1)
         int lines = Mathf.CeilToInt((float)bones.Length * animFrameCount * 12 / width);
-        Debug.Log(lines+": lines");
         var result = new Texture2D(width, lines, TextureFormat.RGBA32, false);
         result.filterMode = FilterMode.Point;
         result.wrapMode = TextureWrapMode.Clamp;
@@ -228,7 +235,7 @@ public class GPUBaker : MonoBehaviour
         var indexUV = new List<Vector2>();
 
         Debug.Log(mesh.vertices.Length);
-        Debug.Log(boneWeights.Length+" weights");
+        Debug.Log(boneWeights.Length + " weights");
         for (var i = 0; i < boneWeights.Length; i++)
         {
             var bw = boneWeights[i];

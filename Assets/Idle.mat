@@ -23,7 +23,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AnimTex:
-        m_Texture: {fileID: 2800000, guid: 4eb7b4d22cf6b6245ad4729bd40eba28, type: 2}
+        m_Texture: {fileID: 2800000, guid: 2d5fead6a21af8e4d82adb8061e4ffcd, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -84,7 +84,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Start: 387
+    - _Start: 0
     - _UVSec: 0
     - _WeightUV: 1
     - _ZWrite: 1
