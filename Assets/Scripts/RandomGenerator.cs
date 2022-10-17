@@ -8,21 +8,42 @@ public class RandomGenerator : MonoBehaviour
     [SerializeField] private float xRange=0.5f;
     [SerializeField] private float yRange =1;
     [SerializeField] private int instanceCount = 100;
-    [SerializeField] private GameObject prefab;
+    [SerializeField] private GameObject GPUPrefab;
+    [SerializeField] private GameObject CPUPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
         ground.transform.localScale = new Vector3(xRange*0.2f ,1, yRange*0.2f);
-        GeneratePrefab();
     }
 
-    private void GeneratePrefab()
+    public void GenerateGPUPrefab()
     {
-        for(int i = 0; i < instanceCount; i++)
+        if (GameObject.Find("CPU"))
+        {
+            Destroy(GameObject.Find("CPU"));
+        }
+        GameObject GPU = new GameObject("GPU");
+        for (int i = 0; i < instanceCount; i++)
         {
             float x = Random.Range(-xRange, xRange);
             float y = Random.Range(-yRange, yRange);
-            Instantiate(prefab,new Vector3(x,0,y),Quaternion.identity,transform);
+            Instantiate(GPUPrefab, new Vector3(x, 0, y), Quaternion.identity, GPU.transform);
+        }
+    }
+
+    public void GenerateCPUPrefab()
+    {
+        if (GameObject.Find("GPU"))
+        {
+            Destroy(GameObject.Find("GPU"));
+        }
+        GameObject CPU = new GameObject("CPU");
+        for (int i = 0; i < instanceCount; i++)
+        {
+            float x = Random.Range(-xRange, xRange);
+            float y = Random.Range(-yRange, yRange);
+            Instantiate(CPUPrefab, new Vector3(x, 0, y), Quaternion.identity, CPU.transform);
         }
     }
 

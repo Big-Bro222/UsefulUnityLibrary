@@ -15,7 +15,6 @@ internal struct VertexInfo
     public Vector3 position;
     public Vector3 normal;
 }
-
 public class GPUBaker : MonoBehaviour
 {
     public enum BAKEMODE
@@ -34,9 +33,7 @@ public class GPUBaker : MonoBehaviour
     public UVCHANNEL outW;
     public UVCHANNEL outI;
     public Mesh mesh;
-
-    [HideInInspector] public ComputeShader computeShader;
-    [HideInInspector] public Button button;
+    public Texture2D skinTexture;
 
     private void OnValidate()
     {
@@ -95,6 +92,7 @@ public class GPUBaker : MonoBehaviour
             gpuClip.FrameCount = frameCount;
             gpuClip.FrameRate = (int) clip.frameRate;
             gpuClip.animTexture = boneTex;
+            gpuClip.skinTexture = skinTexture;
             gpuClips.Add(gpuClip);
             AssetDatabase.CreateAsset(gpuClip, Path.Combine("Assets/AnimationClips", clip.name + ".asset"));
             AssetDatabase.SaveAssets();
@@ -108,9 +106,20 @@ public class GPUBaker : MonoBehaviour
         MeshRenderer meshRenderer = prefab.AddComponent<MeshRenderer>();
         Material mat = new Material(Shader.Find("Custom/BoneAnimationShader"));
         meshRenderer.material = mat;
+
+
         GPUAnimationController ac = prefab.AddComponent<GPUAnimationController>();
         ac.animationClips = gpuClips;
         ac._defaultAnimationClip = gpuClips[0];
+
+        mat.SetTexture("_MainTex", ac._defaultAnimationClip.skinTexture);
+        mat.SetTexture("_AnimTex", ac._defaultAnimationClip.animTexture);
+        mat.SetInt("_BoneCount", ac._defaultAnimationClip.boneCount);
+        mat.SetInt("_FrameCount", ac._defaultAnimationClip.FrameCount);
+        mat.SetInt("_FrameRate", ac._defaultAnimationClip.FrameRate);
+        mat.SetInt("_Start", ac._defaultAnimationClip.StartFrame);
+
+       
 
         var start = 0;
         var height = 0;
@@ -122,9 +131,19 @@ public class GPUBaker : MonoBehaviour
             animationInfos.Add(info);
         }
 
-        AssetDatabase.CreateAsset(bakedMesh, Path.Combine("Assets/BakedMesh", name + ".BakedMesh" + ".mesh"));
+        string outPutFolderPath = Path.Combine(Application.dataPath + "/" + name);
+        if (!Directory.Exists(outPutFolderPath))
+        {
+            Directory.CreateDirectory(outPutFolderPath);
+        }
+
+        AssetDatabase.CreateAsset(mat, Path.Combine("Assets/"+name, name + ".Material" + ".mat"));
+        AssetDatabase.CreateAsset(bakedMesh, Path.Combine("Assets/"+name, name + ".BakedMesh" + ".mesh"));
+        PrefabUtility.SaveAsPrefabAsset(prefab, Path.Combine("Assets/"+name, name + "_Baked.prefab"));
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
+
+
     }
 
     private Texture2D combineTextures(List<Texture2D> textures)

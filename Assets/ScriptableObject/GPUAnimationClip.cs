@@ -6,6 +6,7 @@ using UnityEngine;
 public class GPUAnimationClip : ScriptableObject
 {
     public Texture2D animTexture;
+    public Texture2D skinTexture;
     public int boneCount = 0;
     public int FrameCount = 0;
     public int FrameRate = 30;

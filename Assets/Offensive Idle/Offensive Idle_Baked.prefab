@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3249972613646236451}
   - component: {fileID: 4242068790032591704}
   m_Layer: 0
-  m_Name: GPUSkinned
+  m_Name: Offensive Idle_Baked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
