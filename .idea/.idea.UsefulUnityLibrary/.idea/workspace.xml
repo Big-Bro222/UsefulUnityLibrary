@@ -2,11 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6f92e1e-927f-4f2d-841a-a9d02ec5a1ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/UnityThirdPersonShooter.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/UnityThirdPersonShooter.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UnityThirdPersonShooter.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UnityThirdPersonShooter/Animations.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UnityThirdPersonShooter/Prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UnityThirdPersonShooter/Scripts.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UnityThirdPersonShooter/Scripts/StarterAssetsInputs.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UnityThirdPersonShooter/Scripts/StarterAssetsInputs.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UnityThirdPersonShooter/Scripts/ThirdPersonController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/UnityThirdPersonShooter/Scripts/ThirdPersonController.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UsefulUnityLibrary/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UsefulUnityLibrary/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ThirdPersonFreeLook.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/ThirdPersonFreeLook.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SimpleFreeLook/_Scenes/Demo.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SimpleFreeLook/_Scenes/Demo.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UnitySampleThirdPerson/Scripts/BasicRigidBodyPush.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UnitySampleThirdPerson/Scripts/BasicRigidBodyPush.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +24,8 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e5b1d4d7071a4b08a2c352e4980e4bc41a000/8c/bac6add0/CharacterController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/UnityThirdPersonShooter/Scripts/StarterAssetsInputs.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.4.4/InputSystem/Plugins/PlayerInput/PlayerInput.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -26,6 +38,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -88,7 +101,10 @@
       <updated>1685351423009</updated>
       <workItem from="1685351424358" duration="2482000" />
       <workItem from="1686408186529" duration="1571000" />
-      <workItem from="1686415693725" duration="1454000" />
+      <workItem from="1686415693725" duration="3914000" />
+      <workItem from="1686472748726" duration="3289000" />
+      <workItem from="1686516151072" duration="3386000" />
+      <workItem from="1686554591205" duration="2587000" />
     </task>
     <servers />
   </component>
