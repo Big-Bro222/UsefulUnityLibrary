@@ -3,6 +3,150 @@
   <component name="ChangeListManager">
     <list default="true" id="a6f92e1e-927f-4f2d-841a-a9d02ec5a1ee" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UsefulUnityLibrary/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UsefulUnityLibrary/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/idle.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/idle.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run backward left.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run backward left.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run backward right.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run backward right.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run backward.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run backward.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run forward left.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run forward left.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run forward right.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run forward right.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run forward.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run forward.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run left.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run left.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run right.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/run right.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk backward left.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk backward left.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk backward right.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk backward right.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk backward.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk backward.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk forward left.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk forward left.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk forward right.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk forward right.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk forward.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk forward.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk left.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk left.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk right.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/Animations/walk right.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/X Bot.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/X Bot.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/crouching turn 90 left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/crouching turn 90 left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/crouching turn 90 right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/crouching turn 90 right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/death crouching headshot front.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/death crouching headshot front.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/death from back headshot.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/death from back headshot.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/death from front headshot.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/death from front headshot.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/death from right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/death from right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/death from the back.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/death from the back.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/death from the front.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/death from the front.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/idle aiming.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/idle aiming.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/idle crouching aiming.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/idle crouching aiming.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/idle crouching.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/idle crouching.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/idle.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/idle.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/jump down.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/jump down.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/jump loop.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/jump loop.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/jump up.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/jump up.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run backward left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run backward left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run backward right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run backward right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run backward.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run backward.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run forward left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run forward left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run forward right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run forward right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run forward.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run forward.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/run right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint backward left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint backward left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint backward right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint backward right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint backward.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint backward.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint forward left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint forward left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint forward right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint forward right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint forward.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint forward.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/sprint right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/turn 90 left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/turn 90 left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/turn 90 right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/turn 90 right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk backward left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk backward left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk backward right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk backward right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk backward.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk backward.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching backward left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching backward left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching backward right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching backward right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching backward.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching backward.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching forward left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching forward left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching forward right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching forward right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching forward.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching forward.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk crouching right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk forward left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk forward left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk forward right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk forward right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk forward.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk forward.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk left.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk left.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk right.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rifle 8-Way Locomotion Pack/walk right.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/UnityThirdPersonShooter.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/UnityThirdPersonShooter.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UnityThirdPersonShooter/Animations/ThridPersonShooter.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UnityThirdPersonShooter/Animations/ThridPersonShooter.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UnityThirdPersonShooter/Scripts/ThirdPersonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UnityThirdPersonShooter/Scripts/ThirdPersonController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Walk With Rifle.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Walk With Rifle.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/mixamo.com.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/mixamo.com.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +235,7 @@
       <workItem from="1686472748726" duration="3289000" />
       <workItem from="1686516151072" duration="3386000" />
       <workItem from="1686554591205" duration="3183000" />
+      <workItem from="1694026444280" duration="2660000" />
     </task>
     <servers />
   </component>

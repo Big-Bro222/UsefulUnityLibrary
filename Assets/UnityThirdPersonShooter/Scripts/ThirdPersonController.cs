@@ -91,6 +91,7 @@ namespace ThirdPersonShooter
         // animation IDs
         private int _animIDSpeedVertical;
         private int _animIDSpeedHorizontal;
+        private int _animIDIsRunning;
         private int _animIDGrounded;
         private int _animIDJump;
         private int _animIDFreeFall;
@@ -153,7 +154,6 @@ namespace ThirdPersonShooter
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
-
             JumpAndGravity();
             GroundedCheck();
             Move();
@@ -168,6 +168,7 @@ namespace ThirdPersonShooter
         {
             _animIDSpeedVertical = Animator.StringToHash("SpeedVertical");
             _animIDSpeedHorizontal = Animator.StringToHash("SpeedHorizontal");
+            _animIDIsRunning = Animator.StringToHash("IsRunning");
             _animIDGrounded = Animator.StringToHash("Grounded");
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
@@ -272,8 +273,18 @@ namespace ThirdPersonShooter
 
             
             // update animator if using character
+            //TODO:Change the style of animation
             if (_hasAnimator)
             {
+                if (_input.sprint)
+                {
+                    _animator.SetBool(_animIDIsRunning,true);
+                }
+                else
+                {
+                    _animator.SetBool(_animIDIsRunning,false);
+                }
+                
                 _animator.SetFloat(_animIDSpeedVertical, inputDirection.z);
                 _animator.SetFloat(_animIDSpeedHorizontal, inputDirection.x);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
